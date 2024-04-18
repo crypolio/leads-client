@@ -76,14 +76,18 @@ const App = () => {
 
 	const addTask = async () => {
 		try {
+			setLoading(true);
+
 			const response = await axios.post(
-				'http://localhost:5050/v1/task/create',
+				'https://map-lead-scraper.glitch.me/v1/task/create',
 				{ www: searchUrl }
 			);
 
 			fetchTask();
 			setSearchUrl('');
+			setLoading(false);
 		} catch (error) {
+			setLoading(false);
 			console.error("Error fetching task data:", error);
 		}
 	};
@@ -91,7 +95,7 @@ const App = () => {
 	const fetchTask = async () => {
 		try {
 			const response = await axios.get(
-				'http://localhost:5050/v1/task/list'
+				'https://map-lead-scraper.glitch.me/v1/task/list'
 			);
 
 			setTaskOptions(response.data.result);
@@ -105,7 +109,7 @@ const App = () => {
 	const fetchLead = async (taskId = '') => {
 		try {
 			const response = await axios.get(
-				`http://localhost:5050/v1/lead/${taskId}`
+				`https://map-lead-scraper.glitch.me/v1/lead/${taskId}`
 			);
 			setLeadOptions(response.data.result);
 		} catch (error) {
