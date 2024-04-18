@@ -134,7 +134,7 @@ const App = () => {
 													<i className="bi-map" /> 
 												</span>
 												&nbsp;
-												Google Map Lead Scrapper
+												Map Lead Scraper
 											</h2>
 											<hr />
 											<div className="input-group">
