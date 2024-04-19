@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './App.css';
 
-const TASK_STATUSES = ['Pending', 'Complete', 'Processing', 'Error'];
+const TASK_STATUSES = ['Pending', 'Complete', 'Processing', 'Scraping', 'Error'];
 
 const SEARCH_PLACEHOLDER = 'https://google.com/maps/search/dental+clinic/@45.5627043,-73.7220155,13z/data=!3m1!4b1?entry=ttu';
 
