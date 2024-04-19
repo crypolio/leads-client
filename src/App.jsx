@@ -217,7 +217,7 @@ const App = () => {
 																		</small>
 																	</td>
 																	<td>
-																		<small>
+																		<small className="text-nowrap">
 																			{lead?.phone}
 																		</small>
 																	</td>
