@@ -197,19 +197,29 @@ const App = () => {
 																		</a>
 																	</td>
 																	<td>
-																		{lead?.rating}
+																		<small>
+																			{lead?.rating}
+																		</small>
 																	</td>
 																	<td>
-																		{lead?.reviews}
+																		<small>
+																			{lead?.reviews}
+																		</small>
 																	</td>
 																	<td>
-																		{lead?.category}
+																		<small>
+																			{lead?.category}
+																		</small>
 																	</td>
 																	<td>
-																		{lead?.address}
+																		<small>
+																			{lead?.address}
+																		</small>
 																	</td>
 																	<td>
-																		{lead?.phone}
+																		<small>
+																			{lead?.phone}
+																		</small>
 																	</td>
 																	<td>
 																		{lead?.emails && lead?.emails.length ? 
@@ -217,7 +227,8 @@ const App = () => {
 																				<small className="d-block">
 																					{(email || '').toLowerCase()}
 																				</small>
-																			)) : 'N/A'}
+																			)) : 'N/A'
+																		}
 																	</td>
 																</tr>
 															))}
