@@ -79,7 +79,7 @@ const App = () => {
 			setLoading(true);
 
 			const response = await axios.post(
-				'https://map-lead-scraper.glitch.me/v1/task/create',
+				'https://www.leadeasygen.crypolio.com/v1/task/create',
 				{ www: searchUrl }
 			);
 
@@ -95,7 +95,7 @@ const App = () => {
 	const fetchTask = async () => {
 		try {
 			const response = await axios.get(
-				'https://map-lead-scraper.glitch.me/v1/task/list'
+				'https://www.leadeasygen.crypolio.com/v1/task/list'
 			);
 
 			setTaskOptions(response.data.result);
@@ -109,7 +109,7 @@ const App = () => {
 	const fetchLead = async (taskId = '') => {
 		try {
 			const response = await axios.get(
-				`https://map-lead-scraper.glitch.me/v1/lead/${taskId}`
+				`https://www.leadeasygen.crypolio.com/v1/lead/${taskId}`
 			);
 			setLeadOptions(response.data.result);
 		} catch (error) {
