@@ -81,7 +81,7 @@ const App = () => {
 			setLoading(true);
 
 			const response = await axios.post(
-				'https://www.leadeasygen.crypolio.com/v1/task/create',
+				'https://www.api.leadeasygen.com/v1/task/create',
 				{ www: searchUrl }
 			);
 
@@ -97,7 +97,7 @@ const App = () => {
 	const fetchTask = async () => {
 		try {
 			const response = await axios.get(
-				'https://www.leadeasygen.crypolio.com/v1/task/list'
+				'https://www.api.leadeasygen.com/v1/task/list'
 			);
 
 			setTaskOptions(response.data.result);
@@ -111,7 +111,7 @@ const App = () => {
 	const fetchLead = async (taskId = '') => {
 		try {
 			const response = await axios.get(
-				`https://www.leadeasygen.crypolio.com/v1/lead/${taskId}`
+				`https://www.api.leadeasygen.com/v1/lead/${taskId}`
 			);
 			setLeadOptions(response.data.result);
 		} catch (error) {
@@ -336,4 +336,3 @@ const App = () => {
 };
 
 export default App;
-
