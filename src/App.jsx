@@ -8,7 +8,6 @@ const TASK_STATUSES = ['Pending', 'Complete', 'Processing', 'Scraping', 'Error']
 
 const SEARCH_PLACEHOLDER = 'https://google.com/maps/search/dental+clinic/@45.5627043,-73.7220155,13z/data=!3m1!4b1?entry=ttu';
 
-
 const unixTimestampToDateTime = (utcUnixTime) => {
 	// Convert UTC Unix timestamp to milliseconds
 	const utcMilliseconds = utcUnixTime * 1000;
@@ -227,7 +226,7 @@ const App = () => {
 				{lead?.emails && lead?.emails.length ? 
 					lead?.emails.map((email) => (
 						<small className="d-block">
-						{(email || '').toLowerCase()}
+							{(email || '').toLowerCase()},
 						</small>
 					)) : 'N/A'
 				}
@@ -310,27 +309,27 @@ const App = () => {
 					</td>
 
 					{/*
-																		<td>
-																			<div onClick={() => handleTaskSelection(item.id)}>
-																				<i className="bi-eye" />
-																			</div>
-																		</td>
-																		*/}
+					<td>
+						<div onClick={() => handleTaskSelection(item.id)}>
+							<i className="bi-eye" />
+						</div>
+					</td>
+					*/}
 					</tr>
 				))}
-				</tbody>
-				</table>
+									</tbody>
+								</table>
+							</div>
+						)}
+					</div>
 				</div>
-			)}
-			</div>
-			</div>
 			</div>
 		) : null}
-		</div>
-		</div>
-		</div>
-		</div>
-		</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };
