@@ -227,7 +227,7 @@ const App = () => {
 				{lead?.emails && lead?.emails.length ? 
 					lead?.emails.map((email) => (
 						<small className="d-block">
-						{(email || '').toLowerCase()}
+						{(email || '').toLowerCase()},
 						</small>
 					)) : 'N/A'
 				}
