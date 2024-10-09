@@ -103,6 +103,7 @@ const App = () => {
 
 	const listTasks = async () => {
 		try {
+
 			const { data: { result } }= await axios.get(
 				`${apiURL}/tasks/list`,
 			);
@@ -354,4 +355,3 @@ const App = () => {
 };
 
 export default App;
-
