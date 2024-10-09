@@ -4,7 +4,15 @@ import moment from 'moment-timezone';
 
 import './App.css';
 
-const TASK_STATUSES = ['Pending', 'Complete', 'Processing', 'Scraping', 'Error'];
+const apiURL = 'https://www.api.leadeasygen.com/v2';
+
+const TASK_STATUSES = [
+	'Pending', 
+	'Complete', 
+	'Processing', 
+	'Scraping', 
+	'Error'
+];
 
 const SEARCH_PLACEHOLDER = 'https://google.com/maps/search/dental+clinic/@45.5627043,-73.7220155,13z/data=!3m1!4b1?entry=ttu';
 
@@ -37,7 +45,9 @@ const parseUrl = (url = '') => {
 	return res;
 }
 
-const setActiveTaskClassName = (activeTask = '', currentTask = '') => activeTask === currentTask ? 'table-item table-active' : 'table-item'
+const setActiveTaskClassName = (activeTask = '', currentTask = '') => (
+	activeTask === currentTask ? 'table-item table-active' : 'table-item'
+);
 
 const App = () => {
 	const [ loading, setLoading ] = React.useState(false);
@@ -58,14 +68,12 @@ const App = () => {
 		taskOptions && taskOptions.length
 	), [ taskOptions ]);
 
-	const handleChange = (event) => {
-		setSearchUrl(event.target.value);
-	};
+	const handleChange = (ev) => setSearchUrl(ev.target.value);
 
 	const handleRefreshTask = async () => {
 		setLoading(true);
 
-		fetchTask().then((tasks = []) => {
+		listTasks().then((tasks = []) => {
 			const [ primaryTask ] = (tasks || []).filter(({ status }) => status === 1);
 
 			fetchLead(primaryTask?.id);
@@ -82,12 +90,9 @@ const App = () => {
 		try {
 			setLoading(true);
 
-			const response = await axios.post(
-				'https://www.api.leadeasygen.com/v1/task/create',
-				{ www: searchUrl }
-			);
+			await axios.post(`${apiURL}/tasks/create`, { www: searchUrl });
 
-			fetchTask();
+			listTasks();
 			setSearchUrl('');
 			setLoading(false);
 		} catch (error) {
@@ -96,26 +101,32 @@ const App = () => {
 		}
 	};
 
-	const fetchTask = async () => {
+	const listTasks = async () => {
 		try {
-			const response = await axios.get(
-				'https://www.api.leadeasygen.com/v1/task/list'
+
+			const { data: { result } }= await axios.get(
+				`${apiURL}/tasks/list`,
 			);
 
-			setTaskOptions(response.data.result);
+			setTaskOptions(result);
 
-			return response?.data?.result || [];
+			return result || [];
 		} catch (error) {
 			console.error("Error fetching task data:", error);
 		}
 	};
 
-	const fetchLead = async (taskId = '') => {
+	const fetchLead = async (leadId = '') => {
+		if (!leadId || !leadId.length) return;
+
 		try {
-			const response = await axios.get(
-				`https://www.api.leadeasygen.com/v1/lead/${taskId}`
+			const { data: { result } }= await axios.get(
+				`${apiURL}/leads/${leadId}`,
 			);
-			setLeadOptions(response.data.result);
+
+			setLeadOptions(result);
+
+			return result;
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
@@ -195,49 +206,51 @@ const App = () => {
 															</tr>
 														</thead>
 														<tbody>
-															{leadOptions.map((lead, itemIdx) => (
-																<tr key={lead.id}>
-																	<td>
-																		<a href={lead?.www}>
-																			{lead?.name}
-																		</a>
-																	</td>
-																	<td>
-																		<small>
-																			{lead?.rating}
-																		</small>
-																	</td>
-																	<td>
-																		<small>
-																			{lead?.reviews}
-																		</small>
-																	</td>
-																	<td>
-																		<small>
-																			{lead?.category}
-																		</small>
-																	</td>
-																	<td>
-																		<small>
-																			{lead?.address}
-																		</small>
-																	</td>
-																	<td>
-																		<small className="text-nowrap">
-																			{lead?.phone}
-																		</small>
-																	</td>
-																	<td>
-																		{lead?.emails && lead?.emails.length ? 
-																			lead?.emails.map((email) => (
-																				<small className="d-block">
-																					{(email || '').toLowerCase()},
-																				</small>
-																			)) : 'N/A'
-																		}
-																	</td>
-																</tr>
-															))}
+															{hasLead ? (
+																leadOptions.map((lead, itemIdx) => (
+																	<tr key={lead.id}>
+																		<td>
+																			<a href={lead?.www}>
+																				{lead?.name}
+																			</a>
+																		</td>
+																		<td>
+																			<small>
+																				{lead?.rating}
+																			</small>
+																		</td>
+																		<td>
+																			<small>
+																				{lead?.reviews}
+																			</small>
+																		</td>
+																		<td>
+																			<small>
+																				{lead?.category}
+																			</small>
+																		</td>
+																		<td>
+																			<small>
+																				{lead?.address}
+																			</small>
+																		</td>
+																		<td>
+																			<small className="text-nowrap">
+																				{lead?.phone}
+																			</small>
+																		</td>
+																		<td>
+																			{lead?.emails && lead?.emails.length ? 
+																				lead?.emails.map((email) => (
+																					<small className="d-block">
+																						{(email || '').toLowerCase()},
+																					</small>
+																				)) : 'N/A'
+																			}
+																		</td>
+																	</tr>
+																))
+															) : null}
 														</tbody>
 													</table>
 												</div>
